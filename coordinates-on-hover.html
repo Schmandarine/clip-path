@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinates on Hover</title>
+    <style>
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <svg version="1.0" viewbox="0 0 100 100">
+            <rect x="0" y="0" width="100" height="100" fill="blue"/>
+        </svg>
+    </div>
+    
+    <div>
+        x = <span id="x"></span><br/>
+        y = <span id="y"></span>
+     </div>   
+     
+     <script>
+        var x = document.getElementById("x"),
+        y = document.getElementById("y"),
+        svg = document.querySelector("svg");
+
+        svg.addEventListener("mousemove", function(evt) {
+            var pt = svg.createSVGPoint();
+            pt.x = evt.pageX;
+            pt.y = evt.pageY;
+            pt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+            x.innerHTML = pt.x;
+            y.innerHTML = pt.y;
+        }, false);
+     </script>
+</body>
+</html>
